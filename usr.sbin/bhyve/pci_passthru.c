@@ -629,8 +629,18 @@ cfginit(struct pci_devinst *pi, int bus, int slot, int func)
 		pci_set_cfgdata32(pi, i,
 		    pci_host_read_config(&sc->psc_sel, i, 4));
 	}
-	pci_set_cfgdata8(pi, PCIR_INTLINE, intline);
-	pci_set_cfgdata8(pi, PCIR_INTPIN, intpin);
+	if (pci_get_cfgdata16(pi, PCIR_VENDOR) == PCIV_NVIDIA &&
+            pci_get_cfgdata8(pi, PCIR_CLASS) == PCIC_DISPLAY) {
+		PRINTLN("NVIDIA cfginit Interrupt Line: 0x%02x -> 0x%02x",
+			intline,
+			pci_get_cfgdata8(pi, PCIR_INTLINE));
+		PRINTLN("NVIDIA cfginit Interrupt PIN:  0x%02x -> 0x%02x",
+			intpin,
+			pci_get_cfgdata8(pi, PCIR_INTPIN));
+	} else {
+		pci_set_cfgdata8(pi, PCIR_INTLINE, intline);
+		pci_set_cfgdata8(pi, PCIR_INTPIN, intpin);
+	}
 
 	if (cfginitmsi(sc) != 0) {
 		warnx("failed to initialize MSI for PCI %d/%d/%d",

@@ -122,6 +122,9 @@
 #define	PCIM_MFDEV		0x80
 #define	PCIR_BIST	0x0f
 
+/* PCI vendor IDs */
+
+#define        PCIV_NVIDIA        0x10DE
 /* PCI Spec rev 2.2: 0FFFFh is an invalid value for Vendor ID. */
 #define	PCIV_INVALID	0xffff 
 

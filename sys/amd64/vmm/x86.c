@@ -51,7 +51,7 @@ static SYSCTL_NODE(_hw_vmm, OID_AUTO, topology, CTLFLAG_RD | CTLFLAG_MPSAFE, 0,
 
 #define	CPUID_VM_HIGH		0x40000000
 
-static const char bhyve_id[12] = "bhyve bhyve ";
+static const char bhyve_id[12] = "KVMKVMKVM\0\0\0";
 
 static uint64_t bhyve_xcpuids;
 SYSCTL_ULONG(_hw_vmm, OID_AUTO, bhyve_xcpuids, CTLFLAG_RW, &bhyve_xcpuids, 0,
